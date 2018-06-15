@@ -187,3 +187,12 @@ li {
 .dropdown:hover .dropbtn {
     background-color: #87CEFA;
 }
+
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+div.hr, div.en, div.ar {
+	padding: 20px 130px 20px 130px;
+}

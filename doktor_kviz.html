@@ -5,13 +5,13 @@
 
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <meta name="DC:Creator" content="Mihael" />
-<meta name="DC:Title" content="Boje kviz" />
+<meta name="DC:Title" content="Kod doktora kviz" />
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 
 <title>
-Boje kviz
+Kod doktora kviz
 </title>
 
 <!-- Made with executable version 6.3 Release 0 Build 5 -->
@@ -80,7 +80,7 @@ button{
 }
 
 div.StdDiv{
-	background-color: #56CA4A;
+	background-color: #008000;
 	text-align: center;
 	font-size: 100%;
 	color: #000000;
@@ -222,7 +222,7 @@ table.FlashcardTable tr{
 	border-style: none;
 	margin: 0px;
 	padding: 0px;
-	background-color: #56CA4A;
+	background-color: #008000;
 }
 
 table.FlashcardTable td.Showing{
@@ -235,7 +235,7 @@ table.FlashcardTable td.Showing{
 	border-style: solid;
 	border-width: 1px;
 	color: #000000;
-	background-color: #56CA4A;
+	background-color: #008000;
 }
 
 table.FlashcardTable td.Hidden{
@@ -472,12 +472,12 @@ div.ShortAnswer{
 	text-align: center;
 	border-style: solid;
 
-	border-left-color: #aae4a4;
-	border-top-color: #aae4a4;
-	border-right-color: #2b6525;
-	border-bottom-color: #2b6525;
+	border-left-color: #7fbf7f;
+	border-top-color: #7fbf7f;
+	border-right-color: #004000;
+	border-bottom-color: #004000;
 	color: #000000;
-	background-color: #56CA4A;
+	background-color: #008000;
 
 	border-width: 2px;
 	padding: 3px 6px 3px 6px;
@@ -485,33 +485,33 @@ div.ShortAnswer{
 }
 
 .FuncButtonUp {
-	color: #56CA4A;
+	color: #008000;
 	text-align: center;
 	border-style: solid;
 
-	border-left-color: #aae4a4;
-	border-top-color: #aae4a4;
-	border-right-color: #2b6525;
-	border-bottom-color: #2b6525;
+	border-left-color: #7fbf7f;
+	border-top-color: #7fbf7f;
+	border-right-color: #004000;
+	border-bottom-color: #004000;
 
 	background-color: #000000;
-	color: #56CA4A;
+	color: #008000;
 	border-width: 2px;
 	padding: 3px 6px 3px 6px;
 	cursor: pointer;
 }
 
 .FuncButtonDown {
-	color: #56CA4A;
+	color: #008000;
 	text-align: center;
 	border-style: solid;
 
-	border-left-color: #2b6525;
-	border-top-color: #2b6525;
-	border-right-color: #aae4a4;
-	border-bottom-color: #aae4a4;
+	border-left-color: #004000;
+	border-top-color: #004000;
+	border-right-color: #7fbf7f;
+	border-bottom-color: #7fbf7f;
 	background-color: #000000;
-	color: #56CA4A;
+	color: #008000;
 
 	border-width: 2px;
 	padding: 3px 6px 3px 6px;
@@ -592,7 +592,7 @@ div.CardStyle {
 	border-style: solid;
 	border-width: 1px;
 	color: #000000;
-	background-color: #56CA4A;
+	background-color: #008000;
 	left: -50px;
 	top: -50px;
 	overflow: visible;
@@ -1110,12 +1110,12 @@ Card.prototype.SwapColours=CardSwapColours;
 
 function CardHighlight(){
 	this.css.backgroundColor='#000000';
-	this.css.color='#56CA4A';
+	this.css.color='#008000';
 }
 Card.prototype.Highlight=CardHighlight;
 
 function CardUnhighlight(){
-	this.css.backgroundColor='#56CA4A';
+	this.css.backgroundColor='#008000';
 	this.css.color='#000000';
 }
 Card.prototype.Unhighlight=CardUnhighlight;
@@ -1221,12 +1221,12 @@ var topZ = 100;
 
 //JMATCH-SPECIFIC CORE JAVASCRIPT CODE
 
-var CorrectResponse = 'Bravo! To&#x010D;no je.';
-var IncorrectResponse = 'Poku&#x0161;aj ponovno. Neto&#x010D;ni odgovori su uklonjeni.';
-var YourScoreIs = 'Postigli ste:';
+var CorrectResponse = 'To&#x010D;no! / Correct!';
+var IncorrectResponse = 'Poku&#x0161;aj ponovno. / Try again.';
+var YourScoreIs = 'Postigli ste: / Your result is:';
 var DivWidth = 600; //default value
 var FeedbackWidth = 200; //default
-var ExBGColor = '#56CA4A';
+var ExBGColor = '#008000';
 var PageBGColor = '#C0C0C0';
 var TextColor = '#000000';
 var TitleColor = '#000000';
@@ -1235,7 +1235,7 @@ var Score = 0;
 var TimeOver = false;
 var Locked = false;
 var ShuffleQs = false;
-var QsToShow = 11;
+var QsToShow = 9;
 
 var DragWidth = 200;
 var LeftColPos = 100;
@@ -1354,7 +1354,7 @@ function StartUp(){
 		//DC[i].elm.innerHTML = CardContent;  //old version
 		if (DC[i].GetW() > DragWidth){DC[i].SetW(DragWidth);}
 		DC[i].css.cursor = 'move';
-		DC[i].css.backgroundColor = '#56CA4A';
+		DC[i].css.backgroundColor = '#008000';
 		DC[i].css.color = '#000000';
 		TempInt = DC[i].GetH();
 		if (TempInt > Highest){Highest = TempInt;}
@@ -1402,85 +1402,71 @@ function StartUp(){
 
 F = new Array();
 F[0] = new Array();
-F[0][0]='<p class="RTLText">&#x0623;&#x0633;&#x0648;&#x064E;&#x062F;&#x064F;</p>';
+F[0][0]='&#x0627;&#x0644;&#x0637;&#x0628;&#x064A;&#x0628; / &#x0627;&#x0644;&#x062F;&#x0643;&#x062A;&#x0648;&#x0631;';
 F[0][1] = 1;
 F[1] = new Array();
-F[1][0]='<p class="RTLText">&#x0623;&#x0628;&#x064A;&#x064E;&#x0636;&#x064F;</p>';
+F[1][0]='&#x0635;&#x064A;&#x062F;&#x0627;&#x064A;&#x0629;';
 F[1][1] = 2;
 F[2] = new Array();
-F[2][0]='<p class="RTLText">&#x0623;&#x0632;&#x0631;&#x064E;&#x0642;&#x064F;</p>';
+F[2][0]='&#x0645;&#x0633;&#x062A;&#x0634;&#x0641;&#x064A;';
 F[2][1] = 3;
 F[3] = new Array();
-F[3][0]='<p class="RTLText">&#x0623;&#x062E;&#x0636;&#x064E;&#x0631;&#x064F;</p>';
+F[3][0]='&#x0645;&#x0631;&#x0643;&#x0632; &#x0627;&#x0644;&#x0635;&#x062D;&#x0629;';
 F[3][1] = 4;
 F[4] = new Array();
-F[4][0]='<p class="RTLText">&#x0623;&#x0635;&#x0641;&#x064E;&#x0631;&#x064F;</p>';
+F[4][0]='&#x0631;&#x0623;&#x0633;&#x064A; &#x064A;&#x0648;&#x064B;&#x0644;&#x0645;&#x0646;&#x064A;';
 F[4][1] = 5;
 F[5] = new Array();
-F[5][0]='<p class="RTLText">&#x0623;&#x062D;&#x0645;&#x064E;&#x0631;&#x064F;</p>';
+F[5][0]='&#x0633;&#x0627;&#x0642;&#x064A; &#x064A;&#x0648;&#x064B;&#x0644;&#x0645;&#x0646;&#x064A;';
 F[5][1] = 6;
 F[6] = new Array();
-F[6][0]='<p class="RTLText">&#x0628;&#x064F;&#x0646;&#x064A;</p>';
+F[6][0]='&#x064A;&#x062F;&#x064A; &#x064A;&#x0648;&#x064B;&#x0644;&#x0645;&#x0646;&#x064A;';
 F[6][1] = 7;
 F[7] = new Array();
-F[7][0]='<p class="RTLText">&#x0628;&#x0631;&#x062A;&#x0642;&#x0627;&#x0644;&#x064A;</p>';
+F[7][0]='&#x0631;&#x0643;&#x0628;&#x062A;&#x064A; &#x064A;&#x0648;&#x064B;&#x0644;&#x0645;&#x0646;&#x064A;';
 F[7][1] = 8;
 F[8] = new Array();
-F[8][0]='<p class="RTLText">&#x0648;&#x0631;&#x062F;&#x064A;</p>';
+F[8][0]='&#x0638;&#x0647;&#x0631;&#x064A; &#x064A;&#x0648;&#x064B;&#x0644;&#x0645;&#x0646;&#x064A;';
 F[8][1] = 9;
-F[9] = new Array();
-F[9][0]='<p class="RTLText">&#x0631;&#x0645;&#x0627;&#x062F;&#x064A;</p>';
-F[9][1] = 10;
-F[10] = new Array();
-F[10][0]='<p class="RTLText">&#x0628;&#x0646;&#x0641;&#x0633;&#x062C;&#x064A;</p>';
-F[10][1] = 11;
 
 
 D = new Array();
 D[0] = new Array();
-D[0][0]='crna';
+D[0][0]='lije&#x010D;nik';
 D[0][1] = 1;
 D[0][2] = 0;
 D[1] = new Array();
-D[1][0]='bijela';
+D[1][0]='ljekarna';
 D[1][1] = 2;
 D[1][2] = 0;
 D[2] = new Array();
-D[2][0]='plava';
+D[2][0]='bolnica';
 D[2][1] = 3;
 D[2][2] = 0;
 D[3] = new Array();
-D[3][0]='zelena';
+D[3][0]='dom zdravlja';
 D[3][1] = 4;
 D[3][2] = 0;
 D[4] = new Array();
-D[4][0]='&#x017E;uta';
+D[4][0]='boli me glava';
 D[4][1] = 5;
 D[4][2] = 0;
 D[5] = new Array();
-D[5][0]='crvena';
+D[5][0]='boli me noga';
 D[5][1] = 6;
 D[5][2] = 0;
 D[6] = new Array();
-D[6][0]='sme&#x0111;a';
+D[6][0]='boli me ruka';
 D[6][1] = 7;
 D[6][2] = 0;
 D[7] = new Array();
-D[7][0]='naran&#x010D;asta';
+D[7][0]='boli me koljeno';
 D[7][1] = 8;
 D[7][2] = 0;
 D[8] = new Array();
-D[8][0]='roza';
+D[8][0]='bole me le&#x0111;a';
 D[8][1] = 9;
 D[8][2] = 0;
-D[9] = new Array();
-D[9][0]='siva';
-D[9][1] = 10;
-D[9][2] = 0;
-D[10] = new Array();
-D[10][0]='ljubi&#x010D;asta';
-D[10][1] = 11;
-D[10][2] = 0;
 
 
 function ReduceItems2(){
@@ -1596,9 +1582,9 @@ function CheckAnswers(){
 <!-- EndTopNavButtons -->
 
 <div class="Titles">
-	<h2 class="ExerciseTitle">Boje kviz</h2>
+	<h2 class="ExerciseTitle">Kod doktora kviz</h2>
 
-	<h3 class="ExerciseSubtitle">Vje&#x017E;ba uparivanja pojmova<br />Matching exercise<br /></h3>
+	<h3 class="ExerciseSubtitle">Vje&#x017E;ba uparivanja pojmova<br />Matching exercise</h3>
 
 
 
@@ -1609,7 +1595,7 @@ function CheckAnswers(){
 </div>
 
 <div class="StdDiv" id="CheckButtonDiv">
-<button id="CheckButton1" class="FuncButton" onmouseover="FuncBtnOver(this)" onfocus="FuncBtnOver(this)" onmouseout="FuncBtnOut(this)" onblur="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="CheckAnswers()">&nbsp;Provjera&nbsp;</button>
+<button id="CheckButton1" class="FuncButton" onmouseover="FuncBtnOver(this)" onfocus="FuncBtnOver(this)" onmouseout="FuncBtnOut(this)" onblur="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="CheckAnswers()">&nbsp;Povjera / Check&nbsp;</button>
 </div>
 
 <script type="text/javascript">

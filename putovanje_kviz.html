@@ -5,13 +5,13 @@
 
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <meta name="DC:Creator" content="Mihael" />
-<meta name="DC:Title" content="Boje kviz" />
+<meta name="DC:Title" content="Kamo putujemo? kviz" />
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
 
 <title>
-Boje kviz
+Kamo putujemo? kviz
 </title>
 
 <!-- Made with executable version 6.3 Release 0 Build 5 -->
@@ -80,7 +80,7 @@ button{
 }
 
 div.StdDiv{
-	background-color: #56CA4A;
+	background-color: #008000;
 	text-align: center;
 	font-size: 100%;
 	color: #000000;
@@ -222,7 +222,7 @@ table.FlashcardTable tr{
 	border-style: none;
 	margin: 0px;
 	padding: 0px;
-	background-color: #56CA4A;
+	background-color: #008000;
 }
 
 table.FlashcardTable td.Showing{
@@ -235,7 +235,7 @@ table.FlashcardTable td.Showing{
 	border-style: solid;
 	border-width: 1px;
 	color: #000000;
-	background-color: #56CA4A;
+	background-color: #008000;
 }
 
 table.FlashcardTable td.Hidden{
@@ -472,12 +472,12 @@ div.ShortAnswer{
 	text-align: center;
 	border-style: solid;
 
-	border-left-color: #aae4a4;
-	border-top-color: #aae4a4;
-	border-right-color: #2b6525;
-	border-bottom-color: #2b6525;
+	border-left-color: #7fbf7f;
+	border-top-color: #7fbf7f;
+	border-right-color: #004000;
+	border-bottom-color: #004000;
 	color: #000000;
-	background-color: #56CA4A;
+	background-color: #008000;
 
 	border-width: 2px;
 	padding: 3px 6px 3px 6px;
@@ -485,33 +485,33 @@ div.ShortAnswer{
 }
 
 .FuncButtonUp {
-	color: #56CA4A;
+	color: #008000;
 	text-align: center;
 	border-style: solid;
 
-	border-left-color: #aae4a4;
-	border-top-color: #aae4a4;
-	border-right-color: #2b6525;
-	border-bottom-color: #2b6525;
+	border-left-color: #7fbf7f;
+	border-top-color: #7fbf7f;
+	border-right-color: #004000;
+	border-bottom-color: #004000;
 
 	background-color: #000000;
-	color: #56CA4A;
+	color: #008000;
 	border-width: 2px;
 	padding: 3px 6px 3px 6px;
 	cursor: pointer;
 }
 
 .FuncButtonDown {
-	color: #56CA4A;
+	color: #008000;
 	text-align: center;
 	border-style: solid;
 
-	border-left-color: #2b6525;
-	border-top-color: #2b6525;
-	border-right-color: #aae4a4;
-	border-bottom-color: #aae4a4;
+	border-left-color: #004000;
+	border-top-color: #004000;
+	border-right-color: #7fbf7f;
+	border-bottom-color: #7fbf7f;
 	background-color: #000000;
-	color: #56CA4A;
+	color: #008000;
 
 	border-width: 2px;
 	padding: 3px 6px 3px 6px;
@@ -592,7 +592,7 @@ div.CardStyle {
 	border-style: solid;
 	border-width: 1px;
 	color: #000000;
-	background-color: #56CA4A;
+	background-color: #008000;
 	left: -50px;
 	top: -50px;
 	overflow: visible;
@@ -1051,513 +1051,381 @@ function Finish(){
 
 
 
-function Card(ID, OverlapTolerance){
-	this.elm=document.getElementById(ID);
-	this.name=ID;
-	this.css=this.elm.style;
-	this.elm.style.left = 0 +'px';
-	this.elm.style.top = 0 +'px';
-	this.HomeL = 0;
-	this.HomeT = 0;
-	this.tag=-1;
-	this.index=-1;
-	this.OverlapTolerance = OverlapTolerance;
+
+
+//JCLOZE CORE JAVASCRIPT CODE
+
+function ItemState(){
+	this.ClueGiven = false;
+	this.HintsAndChecks = 0;
+	this.MatchedAnswerLength = 0;
+	this.ItemScore = 0;
+	this.AnsweredCorrectly = false;
+	this.Guesses = new Array();
+	return this;
 }
 
-function CardGetL(){return parseInt(this.css.left)}
-Card.prototype.GetL=CardGetL;
-
-function CardGetT(){return parseInt(this.css.top)}
-Card.prototype.GetT=CardGetT;
-
-function CardGetW(){return parseInt(this.elm.offsetWidth)}
-Card.prototype.GetW=CardGetW;
-
-function CardGetH(){return parseInt(this.elm.offsetHeight)}
-Card.prototype.GetH=CardGetH;
-
-function CardGetB(){return this.GetT()+this.GetH()}
-Card.prototype.GetB=CardGetB;
-
-function CardGetR(){return this.GetL()+this.GetW()}
-Card.prototype.GetR=CardGetR;
-
-function CardSetL(NewL){this.css.left = NewL+'px'}
-Card.prototype.SetL=CardSetL;
-
-function CardSetT(NewT){this.css.top = NewT+'px'}
-Card.prototype.SetT=CardSetT;
-
-function CardSetW(NewW){this.css.width = NewW+'px'}
-Card.prototype.SetW=CardSetW;
-
-function CardSetH(NewH){this.css.height = NewH+'px'}
-Card.prototype.SetH=CardSetH;
-
-function CardInside(X,Y){
-	var Result=false;
-	if(X>=this.GetL()){if(X<=this.GetR()){if(Y>=this.GetT()){if(Y<=this.GetB()){Result=true;}}}}
-	return Result;
-}
-Card.prototype.Inside=CardInside;
-
-function CardSwapColours(){
-	var c=this.css.backgroundColor;
-	this.css.backgroundColor=this.css.color;
-	this.css.color=c;
-}
-Card.prototype.SwapColours=CardSwapColours;
-
-function CardHighlight(){
-	this.css.backgroundColor='#000000';
-	this.css.color='#56CA4A';
-}
-Card.prototype.Highlight=CardHighlight;
-
-function CardUnhighlight(){
-	this.css.backgroundColor='#56CA4A';
-	this.css.color='#000000';
-}
-Card.prototype.Unhighlight=CardUnhighlight;
-
-function CardOverlap(OtherCard){
-	var smR=(this.GetR()<(OtherCard.GetR()+this.OverlapTolerance))? this.GetR(): (OtherCard.GetR()+this.OverlapTolerance);
-	var lgL=(this.GetL()>OtherCard.GetL())? this.GetL(): OtherCard.GetL();
-	var HDim=smR-lgL;
-	if (HDim<1){return 0;}
-	var smB=(this.GetB()<OtherCard.GetB())? this.GetB(): OtherCard.GetB();
-	var lgT=(this.GetT()>OtherCard.GetT())? this.GetT(): OtherCard.GetT();
-	var VDim=smB-lgT;
-	if (VDim<1){return 0;}
-	return (HDim*VDim);	
-}
-Card.prototype.Overlap=CardOverlap;
-
-function CardDockToR(OtherCard){
-	this.SetL(OtherCard.GetR() + 5);
-	this.SetT(OtherCard.GetT());
-}
-
-Card.prototype.DockToR=CardDockToR;
-
-function CardSetHome(){
-	this.HomeL=this.GetL();
-	this.HomeT=this.GetT();
-}
-Card.prototype.SetHome=CardSetHome;
-
-function CardGoHome(){
-	this.SetL(this.HomeL);
-	this.SetT(this.HomeT);
-}
-
-Card.prototype.GoHome=CardGoHome;
-
-//Fix for 6.2.5.2: avoid image dragging problem in draggable cards
-function CardSetHTML(HTML){
-	this.elm.innerHTML = HTML;
-	var DragImgs = this.elm.getElementsByTagName('img');
-	if (DragImgs.length > 0){
-		for (var i=0; i<DragImgs.length; i++){
-			DragImgs[i]. onmousedown = function(){return false;}
-		}
-	}
-}
-
-Card.prototype.SetHTML = CardSetHTML;
-
-function doDrag(e) {
-	if (CurrDrag == -1) {return};
-	if (C.ie){var Ev = window.event}else{var Ev = e}
-	var difX = Ev.clientX-window.lastX; 
-	var difY = Ev.clientY-window.lastY; 
-	var newX = DC[CurrDrag].GetL()+difX; 
-	var newY = DC[CurrDrag].GetT()+difY; 
-	DC[CurrDrag].SetL(newX); 
-	DC[CurrDrag].SetT(newY);
-	window.lastX = Ev.clientX; 
-	window.lastY = Ev.clientY; 
-	return false;
-} 
-
-function beginDrag(e, DragNum) { 
-	CurrDrag = DragNum;
-	if (C.ie){
-		var Ev = window.event;
-		document.onmousemove=doDrag;
-		document.onmouseup=endDrag;
-	}
-	else{
-		var Ev = e;
-		window.onmousemove=doDrag; 
-		window.onmouseup=endDrag;
-	} 
-	DC[CurrDrag].Highlight();
-	topZ++;
-	DC[CurrDrag].css.zIndex = topZ;
-	window.lastX=Ev.clientX; 
-	window.lastY=Ev.clientY;
-	return false;  
-} 
-
-function endDrag(e) { 
-	if (CurrDrag == -1) {return};
-	DC[CurrDrag].Unhighlight();
-	if (C.ie){document.onmousemove=null}else{window.onmousemove=null;}
-	onEndDrag();	
-	CurrDrag = -1;
-//Need a bugfix for Opera focus problem here
-	if (C.opera){FocusAButton();}
-	return true;
-} 
-
-var CurrDrag = -1;
-var topZ = 100;
-
-
-
-
-
-
-//JMATCH-SPECIFIC CORE JAVASCRIPT CODE
-
-var CorrectResponse = 'Bravo! To&#x010D;no je.';
-var IncorrectResponse = 'Poku&#x0161;aj ponovno. Neto&#x010D;ni odgovori su uklonjeni.';
-var YourScoreIs = 'Postigli ste:';
-var DivWidth = 600; //default value
-var FeedbackWidth = 200; //default
-var ExBGColor = '#56CA4A';
-var PageBGColor = '#C0C0C0';
-var TextColor = '#000000';
-var TitleColor = '#000000';
-var Penalties = 0;
-var Score = 0;
-var TimeOver = false;
-var Locked = false;
-var ShuffleQs = false;
-var QsToShow = 11;
-
-var DragWidth = 200;
-var LeftColPos = 100;
-var RightColPos = 500;
-var DragTop = 120;
+var Feedback = '';
+var Correct = 'To&#x010D;no! / Correct!';
+var Incorrect = 'Neki od odgovora su neto&#x010D;ni. Neto&#x010D;ni odgovori su ostavljeni da se mogu promijeniti u to&#x010D;ne. / Some of your answers are incorrect. Incorrect answers have been left in place for you to change.'; 
+var GiveHint = 'Sljede&#x0107;e to&#x010D;no slovo je dodano odgovoru. / The next correct letter has been added to the answer.';
+var CaseSensitive = false;
+var YourScoreIs = 'Rezultat: / Your score is:';
 var Finished = false;
-var AnswersTried = '';
+var Locked = false;
+var Score = 0;
+var CurrentWord = 0;
+var Guesses = '';
+var TimeOver = false;
 
-//Fixed and draggable card arrays
-FC = new Array();
-DC = new Array();
+I = new Array();
 
-function onEndDrag(){ 
-//Is it dropped on any of the fixed cards?
-	var Docked = false;
-	var DropTarget = DroppedOnFixed(CurrDrag);
-	if (DropTarget > -1){
-//If so, send home any card that is currently docked there
-		for (var i=0; i<DC.length; i++){
-			if (DC[i].tag == DropTarget+1){
-				DC[i].GoHome();
-				DC[i].tag = 0;
-				D[i][2] = 0;
-			}
-		}
-//Dock the dropped card
-		DC[CurrDrag].DockToR(FC[DropTarget]);
-		D[CurrDrag][2] = F[DropTarget][1];
-		DC[CurrDrag].tag = DropTarget+1;
-		Docked = true;
-	}
+I[0] = new Array();
+I[0][1] = new Array();
+I[0][1][0] = new Array();
+I[0][1][0][0] = '\u006B\u0061\u0072\u0074\u0061';
+I[0][2]='\u0074\u0069\u0063\u006B\u0065\u0074';
 
-	if (Docked == false){
-		DC[CurrDrag].GoHome();
-		DC[CurrDrag].tag = 0;
-		D[CurrDrag][2] = 0;
-	}
-} 
+I[1] = new Array();
+I[1][1] = new Array();
+I[1][1][0] = new Array();
+I[1][1][0][0] = '\u0067\u0072\u0061\u0064';
+I[1][2]='\u0063\u0069\u0074\u0079';
 
-function DroppedOnFixed(DNum){
-	var Result = -1;
-	var OverlapArea = 0;
-	var Temp = 0;
-	for (var i=0; i<FC.length; i++){
-		Temp = DC[DNum].Overlap(FC[i]);
-		if (Temp > OverlapArea){
-			OverlapArea = Temp;
-			Result = i;
-		}
-	}
-	return Result;
-}
+I[2] = new Array();
+I[2][1] = new Array();
+I[2][1][0] = new Array();
+I[2][1][0][0] = '\u0049\u0064\u0065\u006D';
+I[2][2]='\u0049\u0020\u0061\u006D\u0020\u0067\u006F\u0069\u006E\u0067\u0020\u0074\u006F\u0020\u0074\u0068\u0065\u0020\u0063\u0069\u0074\u0079\u002E';
 
+I[3] = new Array();
+I[3][1] = new Array();
+I[3][1][0] = new Array();
+I[3][1][0][0] = '\u0064\u0075\u0107\u0061\u006E';
+I[3][2]='\u0073\u0068\u006F\u0070\u002F\u0073\u0074\u006F\u0072\u0065';
+
+I[4] = new Array();
+I[4][1] = new Array();
+I[4][1][0] = new Array();
+I[4][1][0][0] = '\u004B\u0061\u0064\u0061';
+I[4][2]='\u0057\u0068\u0065\u006E';
+
+I[5] = new Array();
+I[5][1] = new Array();
+I[5][1][0] = new Array();
+I[5][1][0][0] = '\u0047\u0064\u006A\u0065';
+I[5][2]='\u0057\u0068\u0065\u0072\u0065';
+
+I[6] = new Array();
+I[6][1] = new Array();
+I[6][1][0] = new Array();
+I[6][1][0][0] = '\u0061\u0076\u0069\u006F\u006E\u006F\u006D';
+I[6][2]='\u0077\u0069\u0074\u0068\u0020\u0074\u0068\u0065\u0020\u0070\u006C\u0061\u006E\u0065';
+
+I[7] = new Array();
+I[7][1] = new Array();
+I[7][1][0] = new Array();
+I[7][1][0][0] = '\u0075\u006C\u0069\u0063\u0061\u006D\u0061';
+I[7][2]='\u0073\u0074\u0072\u0065\u0065\u0074\u0073';
+
+I[8] = new Array();
+I[8][1] = new Array();
+I[8][1][0] = new Array();
+I[8][1][0][0] = '\u006C\u0069\u006A\u0065\u0076\u006F\u006D';
+I[8][2]='\u0062\u0079\u0020\u0074\u0068\u0065\u0020\u006C\u0065\u0066\u0074';
+
+
+State = new Array();
 
 function StartUp(){
-
-
-
-
-
-
-
-//Calculate page dimensions and positions
-	pg = new PageDim();
-	DivWidth = Math.floor((pg.W*4)/5);
-	DragWidth = Math.floor((DivWidth*3)/10);
-	LeftColPos = Math.floor(pg.W/15);
-	RightColPos = pg.W - (DragWidth + LeftColPos);
-	DragTop = parseInt(document.getElementById('CheckButtonDiv').offsetHeight) + parseInt(document.getElementById('CheckButtonDiv').offsetTop) + 10;
-
-	if (C.ie){
-		DragTop += 15;
+	RemoveBottomNavBarForIE();
+//Show a keypad if there is one	(added bugfix for 6.0.4.12)
+	if (document.getElementById('CharacterKeypad') != null){
+		document.getElementById('CharacterKeypad').style.display = 'block';
 	}
 	
-//Reduce array if required
-	if (QsToShow < F.length){
-		ReduceItems2();
+
+
+
+
+
+
+	var i = 0;
+
+	State.length = 0;
+	for (i=0; i<I.length; i++){
+		State[i] = new ItemState();
 	}
 	
-//Shuffle the left items if required
-	if (ShuffleQs == true){
-		F = Shuffle(F);
-	}
-
-//Shuffle the items on the right
-	D = Shuffle(D);
-
-	var CurrTop = DragTop;
-	var TempInt = 0;
-	var DropHome = 0;
-	var Widest = 0;
-	var CardContent = '';
-	for (var i=0; i<F.length; i++){
-		CardContent = F[i][0];
-		FC[i] = new Card('F' + i, 10);
-		FC[i].elm.innerHTML = CardContent; 
-		if (FC[i].GetW() > Widest){
-			Widest = FC[i].GetW();
-		}
-	}
-	if (Widest > DragWidth){Widest = DragWidth;}
-
-	CurrTop = DragTop;
-
-	DragWidth = Math.floor((DivWidth-Widest)/2) - 24;
-	RightColPos = DivWidth + LeftColPos - (DragWidth + 14);
-	var Highest = 0;
-	var WidestRight = 0;
-
-	for (i=0; i<D.length; i++){
-		DC[i] = new Card('D' + i, 10);
-		CardContent = D[i][0];
-		
-//Fix for 6.2.5.2 problem with dragging images.
-		DC[i].SetHTML(CardContent);
-		//DC[i].elm.innerHTML = CardContent;  //old version
-		if (DC[i].GetW() > DragWidth){DC[i].SetW(DragWidth);}
-		DC[i].css.cursor = 'move';
-		DC[i].css.backgroundColor = '#56CA4A';
-		DC[i].css.color = '#000000';
-		TempInt = DC[i].GetH();
-		if (TempInt > Highest){Highest = TempInt;}
-		TempInt = DC[i].GetW();
-		if (TempInt > WidestRight){WidestRight = TempInt;}
-	}
-
-//Fix for 6.2: the reduction by 12 seems to be required -- no idea why!
-	var HeightToSet = Highest-12;
-	var WidthToSet = WidestRight-12;
-
-	for (i=0; i<D.length; i++){
-		DC[i].SetT(CurrTop);
-		DC[i].SetL(RightColPos);
-		if (DC[i].GetH() < Highest){
-			DC[i].SetH(HeightToSet);
-		}
-		if (DC[i].GetW() < WidestRight){
-			DC[i].SetW(WidthToSet);
-		}
-		DC[i].SetHome();
-		DC[i].tag = -1;
-		CurrTop = CurrTop + DC[i].GetH() + 5;
-	}
-
-	CurrTop = DragTop;
-
-	for (var i=0; i<F.length; i++){
-		FC[i].SetW(Widest);
-		if (FC[i].GetH() < Highest){
-			FC[i].SetH(HeightToSet);
-		}
-		FC[i].SetT(CurrTop);
-		FC[i].SetL(LeftColPos);
-		FC[i].SetHome();
-		TempInt = FC[i].GetH();
-		CurrTop = CurrTop + TempInt + 5;
-	}
-
+	ClearTextBoxes();
+	
 
 
 }
 
+function ShowClue(ItemNum){
+	if (Locked == true){return;}
+	State[ItemNum].ClueGiven = true;
+	ShowMessage(I[ItemNum][2]);
+}
 
-
-F = new Array();
-F[0] = new Array();
-F[0][0]='<p class="RTLText">&#x0623;&#x0633;&#x0648;&#x064E;&#x062F;&#x064F;</p>';
-F[0][1] = 1;
-F[1] = new Array();
-F[1][0]='<p class="RTLText">&#x0623;&#x0628;&#x064A;&#x064E;&#x0636;&#x064F;</p>';
-F[1][1] = 2;
-F[2] = new Array();
-F[2][0]='<p class="RTLText">&#x0623;&#x0632;&#x0631;&#x064E;&#x0642;&#x064F;</p>';
-F[2][1] = 3;
-F[3] = new Array();
-F[3][0]='<p class="RTLText">&#x0623;&#x062E;&#x0636;&#x064E;&#x0631;&#x064F;</p>';
-F[3][1] = 4;
-F[4] = new Array();
-F[4][0]='<p class="RTLText">&#x0623;&#x0635;&#x0641;&#x064E;&#x0631;&#x064F;</p>';
-F[4][1] = 5;
-F[5] = new Array();
-F[5][0]='<p class="RTLText">&#x0623;&#x062D;&#x0645;&#x064E;&#x0631;&#x064F;</p>';
-F[5][1] = 6;
-F[6] = new Array();
-F[6][0]='<p class="RTLText">&#x0628;&#x064F;&#x0646;&#x064A;</p>';
-F[6][1] = 7;
-F[7] = new Array();
-F[7][0]='<p class="RTLText">&#x0628;&#x0631;&#x062A;&#x0642;&#x0627;&#x0644;&#x064A;</p>';
-F[7][1] = 8;
-F[8] = new Array();
-F[8][0]='<p class="RTLText">&#x0648;&#x0631;&#x062F;&#x064A;</p>';
-F[8][1] = 9;
-F[9] = new Array();
-F[9][0]='<p class="RTLText">&#x0631;&#x0645;&#x0627;&#x062F;&#x064A;</p>';
-F[9][1] = 10;
-F[10] = new Array();
-F[10][0]='<p class="RTLText">&#x0628;&#x0646;&#x0641;&#x0633;&#x062C;&#x064A;</p>';
-F[10][1] = 11;
-
-
-D = new Array();
-D[0] = new Array();
-D[0][0]='crna';
-D[0][1] = 1;
-D[0][2] = 0;
-D[1] = new Array();
-D[1][0]='bijela';
-D[1][1] = 2;
-D[1][2] = 0;
-D[2] = new Array();
-D[2][0]='plava';
-D[2][1] = 3;
-D[2][2] = 0;
-D[3] = new Array();
-D[3][0]='zelena';
-D[3][1] = 4;
-D[3][2] = 0;
-D[4] = new Array();
-D[4][0]='&#x017E;uta';
-D[4][1] = 5;
-D[4][2] = 0;
-D[5] = new Array();
-D[5][0]='crvena';
-D[5][1] = 6;
-D[5][2] = 0;
-D[6] = new Array();
-D[6][0]='sme&#x0111;a';
-D[6][1] = 7;
-D[6][2] = 0;
-D[7] = new Array();
-D[7][0]='naran&#x010D;asta';
-D[7][1] = 8;
-D[7][2] = 0;
-D[8] = new Array();
-D[8][0]='roza';
-D[8][1] = 9;
-D[8][2] = 0;
-D[9] = new Array();
-D[9][0]='siva';
-D[9][1] = 10;
-D[9][2] = 0;
-D[10] = new Array();
-D[10][0]='ljubi&#x010D;asta';
-D[10][1] = 11;
-D[10][2] = 0;
-
-
-function ReduceItems2(){
-	var ItemToDump=0;
-	var j=0;
-	while (F.length > QsToShow){
-		ItemToDump = Math.floor(F.length*Math.random());
-		for (j=ItemToDump; j<(F.length-1); j++){
-			F[j] = F[j+1];
+function SaveCurrentAnswers(){
+	var Ans = '';
+	for (var i=0; i<I.length; i++){
+		Ans = GetGapValue(i);
+		if ((Ans.length > 0)&&(Ans != State[i].Guesses[State[i].Guesses.length-1])){
+			State[i].Guesses[State[i].Guesses.length] = Ans;
 		}
-		for (j=ItemToDump; j<(D.length-1); j++){
-			D[j] = D[j+1];
-		}		
-		F.length = F.length-1;
-		D.length = D.length-1;
 	}
 }
 
-function TimerStartUp(){
-	setTimeout('StartUp()', 300);
+function CompileGuesses(){
+	var F = document.getElementById('store');
+	if (F != null){
+		var Temp = '<?xml version="1.0"?><hpnetresult><fields>';
+		var GapLabel = '';
+		for (var i=0; i<State.length; i++){
+			GapLabel = 'Gap ' + (i+1).toString();
+			Temp += '<field><fieldname>' + GapLabel + '</fieldname>';
+			Temp += '<fieldtype>student-responses</fieldtype><fieldlabel>' + GapLabel + '</fieldlabel>';
+			Temp += '<fieldlabelid>JClozeStudentResponses</fieldlabelid><fielddata>';
+			for (var j=0; j<State[i].Guesses.length; j++){
+				if (j>0){Temp += '| ';}
+				Temp += State[i].Guesses[j] + ' ';	
+			}	
+  		Temp += '</fielddata></field>';
+		}
+		Temp += '</fields></hpnetresult>';
+		Detail = Temp;
+	}
 }
 
 function CheckAnswers(){
 	if (Locked == true){return;}
-//Set the default score and response
-	var TotalCorrect = 0;
-	Score = 0;
-	var Feedback = '';
+	SaveCurrentAnswers();
+	var AllCorrect = true;
 
-//for each fixed, check to see if the tag value for the draggable is the same as the fixed
-	if (AnswersTried.length > 0){AnswersTried += ' | ';}
-	var i, j;
-	for (i=0; i<D.length; i++){
-		if (i>0){AnswersTried += ',';}
-		AnswersTried += D[i][1] + '.' + D[i][2] + '';
-		if ((D[i][2] == D[i][1])&&(D[i][2] > 0)){
-			TotalCorrect++;
+//Check each answer
+	for (var i = 0; i<I.length; i++){
+
+		if (State[i].AnsweredCorrectly == false){
+//If it's right, calculate its score
+			if (CheckAnswer(i, true) > -1){
+				var TotalChars = GetGapValue(i).length;
+				State[i].ItemScore = (TotalChars-State[i].HintsAndChecks)/TotalChars;
+				if (State[i].ClueGiven == true){State[i].ItemScore /= 2;}
+				if (State[i].ItemScore <0 ){State[i].ItemScore = 0;}
+				State[i].AnsweredCorrectly = true;
+//Drop the correct answer into the page, replacing the text box
+				SetCorrectAnswer(i, GetGapValue(i));
+			}
+			else{
+//Otherwise, increment the hints for this item, as a penalty
+				State[i].HintsAndChecks++;
+
+//then set the flag
+				AllCorrect = false;
+			}
 		}
-		else{
-//Change made for version 6.0.3.41: don't send wrong items home, 
-//show them in a more conspicuous way.
-//			DC[i].GoHome();
-				DC[i].SetL(DC[i].GetL() + 10);
-				DC[i].Highlight();
-		}
 	}
 
-	Score = Math.floor((100*(TotalCorrect-Penalties))/F.length);
+//Calculate the total score
+	var TotalScore = 0;
+	for (i=0; i<State.length; i++){
+		TotalScore += State[i].ItemScore;
+	}
+	TotalScore = Math.floor((TotalScore * 100)/I.length);
 
-	var AllDone = false;
+//Compile the output
+	Output = '';
 
-	if (TotalCorrect == F.length) {
-		AllDone = true;
+	if (AllCorrect == true){
+		Output = Correct + '<br />';
 	}
 
-	if (AllDone == true){
-		Feedback = YourScoreIs + ' ' + Score + '%.';
-		ShowMessage(Feedback + '<br />' + CorrectResponse);
+	Output += YourScoreIs + ' ' + TotalScore + '%.<br />';
+	if (AllCorrect == false){
+		Output += Incorrect;
 	}
-	else {
-		Feedback = YourScoreIs + ' ' + Score + '%.' + '<br />' + IncorrectResponse;
-		ShowMessage(Feedback);
-		Penalties++; // Penalty for inaccurate check
-	}
-//If the exercise is over, deal with that
-	if ((AllDone == true)||(TimeOver == true)){
+	ShowMessage(Output);
+	setTimeout('WriteToInstructions(Output)', 50);
+	
+	Score = TotalScore;
+	CompileGuesses();
+	
+	if ((AllCorrect == true)||(Finished == true)){
+	
 
 
 		TimeOver = true;
 		Locked = true;
 		Finished = true;
 		setTimeout('Finish()', SubmissionTimeout);
-		WriteToInstructions(Feedback);
 	}
 
 }
 
+function TrackFocus(BoxNumber){
+	CurrentWord = BoxNumber;
+	InTextBox = true;
+}
+
+function LeaveGap(){
+	InTextBox = false;
+}
+
+function CheckBeginning(Guess, Answer){
+	var OutString = '';
+	var i = 0;
+	var UpperGuess = '';
+	var UpperAnswer = '';
+
+	if (CaseSensitive == false) {
+		UpperGuess = Guess.toUpperCase();
+		UpperAnswer = Answer.toUpperCase();
+	}
+	else {
+		UpperGuess = Guess;
+		UpperAnswer = Answer;
+	}
+
+	while (UpperGuess.charAt(i) == UpperAnswer.charAt(i)) {
+		OutString += Guess.charAt(i);
+		i++;
+	}
+	OutString += Answer.charAt(i);
+	return OutString;
+}
+
+function GetGapValue(GNum){
+	var RetVal = '';
+	if ((GNum<0)||(GNum>=I.length)){return RetVal;}
+	if (document.getElementById('Gap' + GNum) != null){
+		RetVal = document.getElementById('Gap' + GNum).value;
+		RetVal = TrimString(RetVal);
+	}
+	else{
+		RetVal = State[GNum].Guesses[State[GNum].Guesses.length-1];
+	}
+	return RetVal;
+}
+
+function SetGapValue(GNum, Val){
+	if ((GNum<0)||(GNum>=I.length)){return;}
+	if (document.getElementById('Gap' + GNum) != null){
+		document.getElementById('Gap' + GNum).value = Val;
+		document.getElementById('Gap' + GNum).focus();
+	}
+}
+
+function SetCorrectAnswer(GNum, Val){
+	if ((GNum<0)||(GNum>=I.length)){return;}
+	if (document.getElementById('GapSpan' + GNum) != null){
+		document.getElementById('GapSpan' + GNum).innerHTML = Val;
+	}
+}
+
+function FindCurrent() {
+	var x = 0;
+	FoundCurrent = -1;
+
+//Test the current word:
+//If its state is not set to already correct, check the word.
+	if (State[CurrentWord].AnsweredCorrectly == false){
+		if (CheckAnswer(CurrentWord, false) < 0){
+			return CurrentWord;
+		}
+	}
+	
+	x=CurrentWord + 1;
+	while (x<I.length){
+		if (State[x].AnsweredCorrectly == false){
+			if (CheckAnswer(x, false) < 0){
+				return x;
+			}
+		}
+	x++;	
+	}
+
+	x = 0;
+	while (x<CurrentWord){
+		if (State[x].AnsweredCorrectly == false){
+			if (CheckAnswer(x, false) < 0){
+				return x;
+			}
+		}
+	x++;	
+	}
+	return FoundCurrent;
+}
+
+function CheckAnswer(GapNum, MarkAnswer){
+	var Guess = GetGapValue(GapNum);
+	var UpperGuess = '';
+	var UpperAnswer = '';
+	if (CaseSensitive == false){
+		UpperGuess = Guess.toUpperCase();
+	}
+	else{
+		UpperGuess = Guess;
+	}
+	var Match = -1;
+	for (var i = 0; i<I[GapNum][1].length; i++){
+		if (CaseSensitive == false){
+			UpperAnswer = I[GapNum][1][i][0].toUpperCase();
+		}
+		else{
+			UpperAnswer = I[GapNum][1][i][0];
+		}
+		if (TrimString(UpperGuess) == UpperAnswer){
+			Match = i;
+			if (MarkAnswer == true){
+				State[GapNum].AnsweredCorrectly = true;
+			}
+		}
+	}
+	return Match;
+}
+
+function GetHint(GapNum){
+	Guess = GetGapValue(GapNum);
+
+	if (CheckAnswer(GapNum, false) > -1){return ''}
+	RightBits = new Array();
+	for (var i=0; i<I[GapNum][1].length; i++){
+		RightBits[i] = CheckBeginning(Guess, I[GapNum][1][i][0]);
+	}
+	var RightOne = FindLongest(RightBits);
+	var Result = I[GapNum][1][RightOne][0].substring(0,RightBits[RightOne].length);
+//Add another char if the last one is a space
+	if (Result.charAt(Result.length-1) == ' '){
+		Result = I[GapNum][1][RightOne][0].substring(0,RightBits[RightOne].length+1);
+	}
+	return Result;
+}
+
+function ShowHint(){
+	if (document.getElementById('FeedbackDiv').style.display == 'block'){return;}
+	if (Locked == true){return;}
+	var CurrGap = FindCurrent();
+	if (CurrGap < 0){return;}
+
+	var HintString = GetHint(CurrGap);
+
+	if (HintString.length > 0){
+		SetGapValue(CurrGap, HintString);
+		State[CurrGap].HintsAndChecks += 1;
+	}
+	ShowMessage(GiveHint);
+}
+
+function TypeChars(Chars){
+	var CurrGap = FindCurrent();
+	if (CurrGap < 0){return;}
+	if (document.getElementById('Gap' + CurrGap) != null){
+		SetGapValue(CurrGap, document.getElementById('Gap' + CurrGap).value + Chars);
+	}
+}
 
 
 
@@ -1572,21 +1440,24 @@ function CheckAnswers(){
 
 </script>
 
-</head> 
 
-<body onload="TimerStartUp()" id="TheBody" > 
+</head>
+
+<body onload="StartUp()" id="TheBody" >
+
 <!-- BeginTopNavButtons -->
 
 
 <div class="NavButtonBar" id="TopNavBar">
 
 
-<button class="NavButton" onfocus="NavBtnOver(this)" onblur="NavBtnOut(this)" onmouseover="NavBtnOver(this)" onmouseout="NavBtnOut(this)" onmousedown="NavBtnDown(this)" onmouseup="NavBtnOut(this)" onclick="history.back(); return false;"> Nazad </button>
+
+
+<button class="NavButton" onfocus="NavBtnOver(this)" onblur="NavBtnOut(this)"  onmouseover="NavBtnOver(this)" onmouseout="NavBtnOut(this)" onmousedown="NavBtnDown(this)" onmouseup="NavBtnOut(this)" onclick="history.back(); return false;"> Nazad </button>
 
 
 
-<button class="NavButton" onfocus="NavBtnOver(this)" onblur="NavBtnOut(this)"  onmouseover="NavBtnOver(this)" onmouseout="NavBtnOut(this)" onmousedown="NavBtnDown(this)" onmouseup="NavBtnOut(this)" onclick="location='index.html'; return false;"> Naslovnica </button>
-
+<button class="NavButton" onfocus="NavBtnOver(this)" onblur="NavBtnOut(this)" onmouseover="NavBtnOver(this)" onmouseout="NavBtnOut(this)" onmousedown="NavBtnDown(this)" onmouseup="NavBtnOut(this)" onclick="location='index.html'; return false;"> Naslovnica </button>
 
 
 </div>
@@ -1596,41 +1467,53 @@ function CheckAnswers(){
 <!-- EndTopNavButtons -->
 
 <div class="Titles">
-	<h2 class="ExerciseTitle">Boje kviz</h2>
+	<h2 class="ExerciseTitle">Kamo putujemo? kviz</h2>
 
-	<h3 class="ExerciseSubtitle">Vje&#x017E;ba uparivanja pojmova<br />Matching exercise<br /></h3>
+	<h3 class="ExerciseSubtitle">Vje&#x017E;ba popunjavanja praznina<br />Gap-fill exercise</h3>
 
 
 
 </div>
 
 <div id="InstructionsDiv" class="StdDiv">
-	<div id="Instructions">Uparite pojmove s desne strane s pojmovima s lijeve strane.<br />Match the items on the right to the items on the left.</div>
+	<div id="Instructions">Fill in all the gaps, then press "Check" to check your answers. Use the "Hint" button to get a free letter if an answer is giving you trouble. You can also click on the "[?]" button to get a clue. Note that you will lose points if you ask for hints or clues!</div>
 </div>
 
-<div class="StdDiv" id="CheckButtonDiv">
-<button id="CheckButton1" class="FuncButton" onmouseover="FuncBtnOver(this)" onfocus="FuncBtnOver(this)" onmouseout="FuncBtnOut(this)" onblur="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="CheckAnswers()">&nbsp;Provjera&nbsp;</button>
+
+
+
+<div id="WordsDiv" class="StdDiv">
+<span id="WordList" class="ClozeWordList">&#160;&#160; avionom &#160;&#160;&#160;&#160; du&#x0107;an &#160;&#160;&#160;&#160; Gdje &#160;&#160;&#160;&#160; grad &#160;&#160;&#160;&#160; Idem &#160;&#160;&#160;&#160; Kada &#160;&#160;&#160;&#160; karta &#160;&#160;&#160;&#160; lijevom &#160;&#160;&#160;&#160; ulicama &#160;&#160;</span>
 </div>
 
-<script type="text/javascript">
 
-//<![CDATA[
+<div id="MainDiv" class="StdDiv">
 
+<!-- These top buttons hidden; reveal if required -->
 <!--
+<button id="CheckButton1" class="FuncButton" onmouseover="FuncBtnOver(this)" onfocus="FuncBtnOver(this)" onmouseout="FuncBtnOut(this)" onblur="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="CheckAnswers()">&nbsp;Provjera / Check&nbsp;</button>
 
 
-for (var i=0; i<F.length; i++){
-	document.write('<div id="F' + i + '" class="CardStyle"></div>');
-}
 
-for (var i=0; i<D.length; i++){
-	document.write('<div id="D' + i + '" class="CardStyle" onmousedown="beginDrag(event, ' + i + ')"></div>');
-}
+ -->
+ 
+<div id="ClozeDiv">
+<form id="Cloze" method="post" action="" onsubmit="return false;">
+<div class="ClozeBody">
+1/ Za putovanje autobusom, vlakom i avionom, potrebna nam je <span class="GapSpan" id="GapSpan0"><select id="Gap0"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(0)">[?]</button></span>.<br />2/ Koji bus ide u <span class="GapSpan" id="GapSpan1"><select id="Gap1"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(1)">[?]</button></span>?<br />3/ Kamo ide&#x0161;? <span class="GapSpan" id="GapSpan2"><select id="Gap2"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(2)">[?]</button></span> u grad.<br />4/ U gradu je jedan dobar <span class="GapSpan" id="GapSpan3"><select id="Gap3"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(3)">[?]</button></span>. Idemo kupiti majicu i hla&#x010D;e.<br />5/ <span class="GapSpan" id="GapSpan4"><select id="Gap4"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(4)">[?]</button></span> ide&#x0161; na posao? U koliko sati?<br />6/ <span class="GapSpan" id="GapSpan5"><select id="Gap5"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(5)">[?]</button></span> je tvoja &#x0161;kola? Putuje&#x0161; li autobusom?<br />7/ Bio sam u Londonu i jako mi se svi&#x0111;a grad. Putovao sam <span class="GapSpan" id="GapSpan6"><select id="Gap6"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(6)">[?]</button></span>.<br />8/ U Londonu se auti voze suprotno nego u Zagrebu. Po <span class="GapSpan" id="GapSpan7"><select id="Gap7"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(7)">[?]</button></span> Londona se vozi <span class="GapSpan" id="GapSpan8"><select id="Gap8"><option value=""></option><option value="avionom">avionom</option><option value="du&#x0107;an">du&#x0107;an</option><option value="Gdje">Gdje</option><option value="grad">grad</option><option value="Idem">Idem</option><option value="Kada">Kada</option><option value="karta">karta</option><option value="lijevom">lijevom</option><option value="ulicama">ulicama</option></select><button style="line-height: 1.0" class="FuncButton" onfocus="FuncBtnOver(this)" onmouseover="FuncBtnOver(this)" onblur="FuncBtnOut(this)" onmouseout="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="ShowClue(8)">[?]</button></span> stranom ceste.
+</div>
+</form>
+</div>
 
-//-->
 
-//]]>
-</script>
+
+<button id="CheckButton2" class="FuncButton" onmouseover="FuncBtnOver(this)" onfocus="FuncBtnOver(this)" onmouseout="FuncBtnOut(this)" onblur="FuncBtnOut(this)" onmousedown="FuncBtnDown(this)" onmouseup="FuncBtnOut(this)" onclick="CheckAnswers()">&nbsp;Provjera / Check&nbsp;</button>
+
+
+
+</div>
+
+
 
 <div class="Feedback" id="FeedbackDiv">
 <div class="FeedbackText" id="FeedbackContent"></div>
@@ -1639,6 +1522,23 @@ for (var i=0; i<D.length; i++){
 
 <!-- BeginBottomNavButtons -->
 
+
+<div class="NavButtonBar" id="BottomNavBar">
+
+
+
+
+<button class="NavButton" onfocus="NavBtnOver(this)" onblur="NavBtnOut(this)"  onmouseover="NavBtnOver(this)" onmouseout="NavBtnOut(this)" onmousedown="NavBtnDown(this)" onmouseup="NavBtnOut(this)" onclick="history.back(); return false;"> Nazad </button>
+
+
+
+<button class="NavButton" onfocus="NavBtnOver(this)" onblur="NavBtnOut(this)" onmouseover="NavBtnOver(this)" onmouseout="NavBtnOut(this)" onmousedown="NavBtnDown(this)" onmouseup="NavBtnOut(this)" onclick="location='index.html'; return false;"> Naslovnica </button>
+
+
+</div>
+
+
+
 <!-- EndBottomNavButtons -->
 
 <!-- BeginSubmissionForm -->
@@ -1646,4 +1546,5 @@ for (var i=0; i<D.length; i++){
 <!-- EndSubmissionForm -->
 
 </body>
+
 </html>
