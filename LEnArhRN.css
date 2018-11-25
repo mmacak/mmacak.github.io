@@ -196,3 +196,56 @@ li {
 div.hr, div.en, div.ar {
 	padding: 20px 130px 20px 130px;
 }
+
+/* "Follow me" button
+*/
+
+.container{
+	background-color: #87CEFA;
+	height: 92px;
+	width: 295px;
+	position: relative;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.container:hover .cover{
+	transform: rotate(-75deg);
+}
+.buttons{
+	background-color: #87CEFA;
+	padding: 20px;
+	width: 255px;
+	border-radius: 20px;
+}
+button{
+	background-color: transparent;
+	border: none;
+}
+.fa{
+	color: #2b2020;
+	margin-left: 20px;
+}
+.fa:hover{
+	transform: scale(1.3);
+}
+.fa-intagram{
+	margin-left: 30px;
+}
+.cover {
+	background-color: blue;
+	height: 52px;
+	width: 255px;
+	color: white;
+	font-size: 38px;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	position: relative;
+	bottom: 92px;
+	transform-origin: left;
+	transition: 2s ease;
+	border: none;
+	border-radius: 20px;
+}
