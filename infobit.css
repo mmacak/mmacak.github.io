@@ -1,0 +1,252 @@
+html, body
+	{
+		height: 100%;
+	}
+	
+	body
+	{
+		margin: 0px;
+		padding: 0px;
+		background: #87BF93;
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 12pt;
+		font-weight: 400;
+		color: #4E4D4D;
+	}
+	
+	
+	h1, h2, h3
+	{
+		margin: 0;
+		padding: 0;
+	}
+	
+	p, ol, ul
+	{
+		margin-top: 0;
+	}
+	
+	ol, ul
+	{
+		padding: 0;
+		list-style: none;
+	}
+	
+	p
+	{
+		line-height: 180%;
+	}
+
+	
+	a
+	{
+		color: #383838;
+	}
+	
+	a:hover
+	{
+		text-decoration: none;
+	}
+	
+	.velicina
+	{
+		width: 1200px;
+		margin: 0px auto;
+	}
+h1{
+   color: rgb(50,101,154);
+   text-align: center;   
+   }
+
+   
+/* Izbornik */   
+
+   #menu ul
+	{
+		margin: 0;
+		padding: 20px 0px 20px 0px;
+		list-style: none;
+		line-height: normal;
+		text-align: center;
+	}
+	
+	#menu li
+	{
+		display: inline-block;
+	}
+	
+	#menu a
+	{
+		display: inline-block;
+		padding: 1em 2em;
+		letter-spacing: 1px;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 1em;
+		font-weight: 700;
+		color: #FFF;
+	}
+	
+	#menu .trenutni a
+	{
+		border-radius: 30px;
+		border: 1px solid;
+		border-color: rgb(50,101,154);
+	}
+	
+	#menu a:hover
+	{
+	    border-radius: 30px;
+		border: 1px solid;
+		border-color: rgb(50,101,154);
+	}
+	
+/* Sadržaj */
+
+
+	#sadrzaj1
+	{
+		background: teal;
+		
+	}
+
+	#sadrzaj2
+	{
+		overflow: hidden;
+		padding: 2em 0em;
+	}
+
+/* Footer */	
+
+#footer p
+	{
+	    padding-top: 10px;
+		letter-spacing: 0.20em;
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 0.80em;
+		color: rgb(50,101,154);
+	}	
+	
+p {
+  text-align: center;
+  }
+li {
+  text-align: center;
+  }
+  
+  
+  
+/* Dropdown Button */
+.dropbtn {
+    background-color: #87BF93;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+	text-transform: uppercase;
+	font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #87BF93;
+    width: 100%;
+	overflow:auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #161616}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #87BF93;
+}
+
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+div.hr, div.en, div.ar {
+	padding: 20px 130px 20px 130px;
+}
+
+/* "Follow me" button
+*/
+
+.container{
+	background-color: #87BF93;
+	height: 92px;
+	width: 295px;
+	position: relative;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.container:hover .cover{
+	transform: rotate(-75deg);
+}
+.buttons{
+	background-color: #87BF93;
+	padding: 20px;
+	width: 255px;
+	border-radius: 20px;
+}
+button{
+	background-color: transparent;
+	border: none;
+}
+.fa{
+	color: #2b2020;
+	margin-left: 20px;
+}
+.fa:hover{
+	transform: scale(1.3);
+}
+.fa-intagram{
+	margin-left: 30px;
+}
+.cover {
+	background-color: blue;
+	height: 35px;
+	width: 255px;
+	color: white;
+	font-size: 25px;
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	position: relative;
+	bottom: 92px;
+	transform-origin: left;
+	transition: 1s ease;
+	border: none;
+	border-radius: 20px;
+}
